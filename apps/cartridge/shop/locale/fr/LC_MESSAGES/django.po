@@ -633,7 +633,7 @@ msgid ""
 msgstr ""
 "Traduction invalide pour l'unité monétaire de SHOP_CURRENCY_LOCALE: '%s'. "
 "Vous devez préciser la langue locale de votre système, ou configurer la "
-"variable SHOP_CURRENCY_LOCALE dans votre module settings.py."
+"variable SHOP_CURRENCY_LOCALE dans votre module settings_all.py."
 
 #: views.py:60 views.py:102
 msgid "Item added to cart"

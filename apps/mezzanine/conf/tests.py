@@ -112,14 +112,14 @@ class ConfTests(TestCase):
 
     def test_editable_override(self):
         """
-        Test that an editable setting is always overridden by a settings.py
+        Test that an editable setting is always overridden by a settings_all.py
         setting of the same name.
         """
 
         settings.clear_cache()
 
         Setting.objects.all().delete()
-        django_settings.FOO = "Set in settings.py"
+        django_settings.FOO = "Set in settings_all.py"
         Setting.objects.create(name="FOO", value="Set in database")
         first_value = settings.FOO
         settings.SITE_TITLE  # Triggers access?
@@ -176,7 +176,7 @@ class ConfTests(TestCase):
 
     def test_conflicting_setting(self):
         """
-        Test that conflicting settings raise a warning and use the settings.py
+        Test that conflicting settings raise a warning and use the settings_all.py
         value instead of the value from the database.
         """
 

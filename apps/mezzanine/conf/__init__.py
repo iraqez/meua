@@ -45,7 +45,7 @@ def register_setting(name=None, label=None, editable=False, description=None,
         return
 
     # If an editable setting has a value defined in the
-    # project's settings.py module, it can't be editable, since
+    # project's settings_all.py module, it can't be editable, since
     # these lead to a lot of confusion once its value gets
     # defined in the db.
     if hasattr(django_settings, name):
@@ -86,7 +86,7 @@ class Settings(object):
     database stored settings get retrieved from the database.
 
     When accessing uneditable settings their default values are used,
-    unless they've been given a value in the project's settings.py
+    unless they've been given a value in the project's settings_all.py
     module.
 
     The settings object also provides access to Django settings via
@@ -180,7 +180,7 @@ class Settings(object):
         Load editable settings from the database and return them as a dict.
         Delete any settings from the database that are no longer registered,
         and emit a warning if there are settings that are defined in both
-        settings.py and the database.
+        settings_all.py and the database.
         """
         from mezzanine.conf.models import Setting
 
@@ -202,8 +202,8 @@ class Settings(object):
             # Convert a string from the database to the correct Python type.
             setting_value = self._to_python(setting, setting_obj.value)
 
-            # If a setting is defined both in the database and in settings.py,
-            # raise a warning and use the value defined in settings.py.
+            # If a setting is defined both in the database and in settings_all.py,
+            # raise a warning and use the value defined in settings_all.py.
             if hasattr(django_settings, setting["name"]):
                 if setting_value != setting["default"]:
                     conflicting_settings.append(setting_obj.name)
@@ -216,8 +216,8 @@ class Settings(object):
             Setting.objects.filter(name__in=removed_settings).delete()
 
         if conflicting_settings:
-            warn("These settings are defined in both settings.py and "
-                 "the database: %s. The settings.py values will be used."
+            warn("These settings are defined in both settings_all.py and "
+                 "the database: %s. The settings_all.py values will be used."
                  % ", ".join(conflicting_settings))
 
         return new_cache

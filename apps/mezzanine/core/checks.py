@@ -36,7 +36,7 @@ def check_template_settings(app_configs, **kwargs):
             issues.append(Warning(
                 "TEMPLATE_DEBUG and DEBUG settings have different values, "
                 "which may not be what you want. Mezzanine used to fix this "
-                "for you, but doesn't any more. Update your settings.py to "
+                "for you, but doesn't any more. Update your settings_all.py to "
                 "use the TEMPLATES setting to have template debugging "
                 "controlled by the DEBUG setting.",
                 id="mezzanine.core.W02"
