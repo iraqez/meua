@@ -51,7 +51,6 @@ from cartridge.shop.models import ProductVariation, ProductOption, Order
 from cartridge.shop.models import OrderItem, Sale, DiscountCode
 from cartridge.shop.views import HAS_PDF
 
-
 # Lists of field names.
 option_fields = [f.name for f in ProductVariation.option_fields()]
 _flds = lambda s: [f.name for f in Order._meta.fields if f.name.startswith(s)]
@@ -372,6 +371,10 @@ class DiscountCodeAdmin(admin.ModelAdmin):
     )
 
 
+
+
+
+
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Product, ProductAdmin)
 if settings.SHOP_USE_VARIATIONS:
@@ -379,3 +382,4 @@ if settings.SHOP_USE_VARIATIONS:
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Sale, SaleAdmin)
 admin.site.register(DiscountCode, DiscountCodeAdmin)
+
