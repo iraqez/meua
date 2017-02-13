@@ -57,10 +57,11 @@ class SiteRelated(models.Model):
         created, or the ``update_site`` argument is explicitly set
         to ``True``.
         """
-        if update_site or (self.id is None and self.site is None):
-            #self.site = get_current_site('a')
-            
+        if update_site or (self.id is None):
+            self.site_id = get_current_site('a').id
+
         super(SiteRelated, self).save(*args, **kwargs)
+        self.site.add(get_current_site('a'))
 
 
 @python_2_unicode_compatible

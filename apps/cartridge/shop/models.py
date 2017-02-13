@@ -260,7 +260,8 @@ class ProductVariation(with_metaclass(ProductVariationMetaclass, Priced)):
         """
         super(ProductVariation, self).validate_unique(*args, **kwargs)
         if self.__class__.objects.exclude(id=self.id).filter(
-                product__site_id=self.product.site_id, sku=self.sku).exists():
+                # product__site_id=self.product.site_id,
+                sku=self.sku).exists():
             raise ValidationError({"sku": _("SKU is not unique")})
 
     @classmethod

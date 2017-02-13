@@ -374,12 +374,12 @@ class CurrentSiteManager(DjangoCSM):
         self.__field_name = field_name
         self.__is_validated = False
 
-    def get_queryset(self):
-        if not self.__is_validated:
-            self._get_field_name()
-       # lookup = {self.__field_name + "__id__exact": current_site_id()}
-        lookup = {self.__field_name + "__id__exact": current_site_id()}
-        return super(DjangoCSM, self).get_queryset().filter(**lookup)
+    # def get_queryset(self):
+    #     if not self.__is_validated:
+    #         self._get_field_name()
+    #    # lookup = {self.__field_name + "__id__exact": current_site_id()}
+    #     lookup = {self.__field_name + "__id__exact": current_site_id()}
+    #     return super(DjangoCSM, self).get_queryset().filter(**lookup)
 
 
 class DisplayableManager(CurrentSiteManager, PublishedManager,
