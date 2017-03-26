@@ -18,6 +18,11 @@ from django.utils.translation import ugettext_lazy as _
 
 # Sequence of available credit card types for payment.
 # SHOP_CARD_TYPES = ("Mastercard", "Visa", "Diners", "Amex")
+SHOP_CARD_TYPES = (
+    # "Mastercard",
+    # "Visa",
+    "Privat Bank",
+    "Others bank")
 
 # Setting to turn on featured images for shop categories. Defaults to False.
 # SHOP_CATEGORY_USE_FEATURED_IMAGE = True
@@ -164,7 +169,7 @@ USE_MODELTRANSLATION = True
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['me']
+ALLOWED_HOSTS = []
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -202,7 +207,13 @@ SITE_ID = 1
 # to load the internationalization machinery.
 USE_I18N = False
 
-AUTHENTICATION_BACKENDS = ("mezzanine.core.auth_backends.MezzanineBackend",)
+AUTHENTICATION_BACKENDS = (
+    # "mezzanine.core.auth_backends.MezzanineBackend",
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend"
+)
 
 # The numeric mode to set newly-uploaded files to. The value should be
 # a mode you'd pass directly to os.chmod.
@@ -286,6 +297,9 @@ TEMPLATES = [
                 "django.template.context_processors.tz",
                 "mezzanine.conf.context_processors.settings",
                 "mezzanine.pages.context_processors.page",
+                #allauth
+                # "allauth.socialaccount.",
+                # "allauth.socialaccount.context_processors.socialaccount"
             ],
             "builtins": [
                 "mezzanine.template.loader_tags",
@@ -296,6 +310,18 @@ TEMPLATES = [
 
 if DJANGO_VERSION < (1, 9):
     del TEMPLATES[0]["OPTIONS"]["builtins"]
+
+#############################
+# AUTH AND ALLAUTH SETTINGS #
+#############################
+LOGIN_REDIRECT_URL = '/'
+SOCIALACCOUNT_QUERY_EMAIL = True
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'SCOPE': ['email', 'publish_stream'],
+        'METHOD': 'js_sdk'  # instead of 'oauth2'
+    }
+}
 
 
 ################
@@ -321,6 +347,11 @@ INSTALLED_APPS = (
     "mezzanine.forms",
     "mezzanine.galleries",
     "mezzanine.twitter",
+    #allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
     # "mezzanine.accounts",
     # "mezzanine.mobile",
 )
@@ -385,7 +416,8 @@ OPTIONAL_APPS = (
 # local_settings has full access to everything defined in this module.
 # Also force into sys.modules so it's visible to Django's autoreload.
 
-f = os.path.join(PROJECT_APP_PATH, "../meua/local_settings.py")
+# f = os.path.join(PROJECT_APP_PATH, "../meua/local_settings.py")
+f = os.path.join(PROJECT_APP_PATH, "./local_settings.py")
 if os.path.exists(f):
     import sys
     import imp

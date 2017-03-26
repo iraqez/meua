@@ -10,7 +10,11 @@ from mezzanine.conf import settings
 from cartridge.shop.views import order_history
 
 
+
 admin.autodiscover()
+
+#Allauth
+url(r'^accounts/', include('allauth.urls')),
 
 # Add the urlpatterns for any custom Django applications here.
 # You can also change the ``home`` view to add your own functionality
